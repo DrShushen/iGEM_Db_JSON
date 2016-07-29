@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="igem_simplifiedModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="features">
+          <Key>
+            <PropertyRef Name="feature_id" />
+          </Key>
+          <Property Name="feature_id" Type="int" Nullable="false" />
+          <Property Name="part_id" Type="int" Nullable="false" />
+          <Property Name="feature_type" Type="varchar" MaxLength="200" />
+          <Property Name="label" Type="varchar" MaxLength="200" />
+          <Property Name="start_pos" Type="int" />
+          <Property Name="end_pos" Type="int" />
+          <Property Name="direction_is_reverse" Type="int" />
+        </EntityType>
+        <EntityType Name="parts">
+          <Key>
+            <PropertyRef Name="part_id" />
+          </Key>
+          <Property Name="part_id" Type="int" Nullable="false" />
+          <Property Name="part_name" Type="varchar" MaxLength="255" />
+          <Property Name="part_type" Type="varchar" MaxLength="20" />
+          <Property Name="status" Type="varchar" MaxLength="20" />
+          <Property Name="nickname" Type="varchar" MaxLength="10" />
+          <Property Name="short_desc" Type="varchar" MaxLength="100" />
+          <Property Name="description" Type="longtext" />
+          <Property Name="sequence_length" Type="int" />
+          <Property Name="sequence" Type="longtext" />
+          <Property Name="notes" Type="longtext" />
+        </EntityType>
+        <Association Name="FK_features_parts">
+          <End Role="parts" Type="Self.parts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="features" Type="Self.features" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="parts">
+              <PropertyRef Name="part_id" />
+            </Principal>
+            <Dependent Role="features">
+              <PropertyRef Name="part_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="igem_simplifiedModelStoreContainer">
+          <EntitySet Name="features" EntityType="Self.features" Schema="igem_simplified" store:Type="Tables" />
+          <EntitySet Name="parts" EntityType="Self.parts" Schema="igem_simplified" store:Type="Tables" />
+          <AssociationSet Name="FK_features_parts" Association="Self.FK_features_parts">
+            <End Role="parts" EntitySet="parts" />
+            <End Role="features" EntitySet="features" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="igem_simplifiedModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="features">
+          <Key>
+            <PropertyRef Name="feature_id" />
+          </Key>
+          <Property Name="feature_id" Type="Int32" Nullable="false" />
+          <Property Name="part_id" Type="Int32" Nullable="false" />
+          <Property Name="feature_type" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="label" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="start_pos" Type="Int32" />
+          <Property Name="end_pos" Type="Int32" />
+          <Property Name="direction_is_reverse" Type="Int32" />
+          <NavigationProperty Name="parts" Relationship="Self.FK_features_parts" FromRole="features" ToRole="parts" />
+        </EntityType>
+        <EntityType Name="parts">
+          <Key>
+            <PropertyRef Name="part_id" />
+          </Key>
+          <Property Name="part_id" Type="Int32" Nullable="false" />
+          <Property Name="part_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="part_type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="nickname" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="short_desc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="sequence_length" Type="Int32" />
+          <Property Name="sequence" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="notes" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="features" Relationship="Self.FK_features_parts" FromRole="parts" ToRole="features" />
+        </EntityType>
+        <Association Name="FK_features_parts">
+          <End Role="parts" Type="Self.parts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="features" Type="Self.features" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="parts">
+              <PropertyRef Name="part_id" />
+            </Principal>
+            <Dependent Role="features">
+              <PropertyRef Name="part_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="igem_simplifiedEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="features" EntityType="Self.features" />
+          <EntitySet Name="parts" EntityType="Self.parts" />
+          <AssociationSet Name="FK_features_parts" Association="Self.FK_features_parts">
+            <End Role="parts" EntitySet="parts" />
+            <End Role="features" EntitySet="features" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="igem_simplifiedModelStoreContainer" CdmEntityContainer="igem_simplifiedEntities">
+          <EntitySetMapping Name="features">
+            <EntityTypeMapping TypeName="igem_simplifiedModel.features">
+              <MappingFragment StoreEntitySet="features">
+                <ScalarProperty Name="feature_id" ColumnName="feature_id" />
+                <ScalarProperty Name="part_id" ColumnName="part_id" />
+                <ScalarProperty Name="feature_type" ColumnName="feature_type" />
+                <ScalarProperty Name="label" ColumnName="label" />
+                <ScalarProperty Name="start_pos" ColumnName="start_pos" />
+                <ScalarProperty Name="end_pos" ColumnName="end_pos" />
+                <ScalarProperty Name="direction_is_reverse" ColumnName="direction_is_reverse" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="parts">
+            <EntityTypeMapping TypeName="igem_simplifiedModel.parts">
+              <MappingFragment StoreEntitySet="parts">
+                <ScalarProperty Name="part_id" ColumnName="part_id" />
+                <ScalarProperty Name="part_name" ColumnName="part_name" />
+                <ScalarProperty Name="part_type" ColumnName="part_type" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="nickname" ColumnName="nickname" />
+                <ScalarProperty Name="short_desc" ColumnName="short_desc" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sequence_length" ColumnName="sequence_length" />
+                <ScalarProperty Name="sequence" ColumnName="sequence" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
