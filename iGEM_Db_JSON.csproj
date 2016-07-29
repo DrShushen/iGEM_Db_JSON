@@ -89,15 +89,33 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>igem_simplifiedModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="bin\Release\iGEM_Db_JSON.exe.config" />
+    <None Include="bin\Release\iGEM_Db_JSON.vshost.exe.config" />
+    <None Include="bin\Release\iGEM_Db_JSON.vshost.exe.manifest" />
     <None Include="igem_simplifiedModel.edmx.diagram">
       <DependentUpon>igem_simplifiedModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Release\EntityFramework.dll" />
+    <Content Include="bin\Release\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Release\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\Release\EntityFramework.xml" />
+    <Content Include="bin\Release\iGEM_Db_JSON.exe" />
+    <Content Include="bin\Release\iGEM_Db_JSON.pdb" />
+    <Content Include="bin\Release\iGEM_Db_JSON.vshost.exe" />
+    <Content Include="bin\Release\MySql.Data.dll" />
+    <Content Include="bin\Release\MySql.Data.Entity.EF6.dll" />
+    <Content Include="bin\Release\MySql.Data.Entity.EF6.xml" />
+    <Content Include="bin\Release\MySql.Data.xml" />
+    <Content Include="bin\Release\MySql.Web.dll" />
+    <Content Include="bin\Release\MySql.Web.xml" />
+    <Content Include="igem_simplified SQL Dump\igem_simplified.sql" />
     <Content Include="igem_simplifiedModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>igem_simplifiedModel.edmx</DependentUpon>
